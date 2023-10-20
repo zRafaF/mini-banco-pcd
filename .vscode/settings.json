@@ -1,0 +1,14 @@
+{
+    "cSpell.language": "en,pt-BR",
+    "licenser.disableAutoHeaderInsertion": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "prettier.tabWidth": 4,
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google,  ColumnLimit: 0, IndentWidth: 4, TabWidth: 4}",
+    "files.associations": {
+        "*.pl": "prolog",
+        "fileops.h": "c"
+    }
+}
