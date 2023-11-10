@@ -25,21 +25,28 @@ endif
 
 # Build rule
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	$(clean)
 	$(dir_guard)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Main target
-$(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) $^ -o $@
+# Main target with clean and all as dependencies
+$(TARGET): clean all
 
 # Default target
-all: $(TARGET)
+all: 
+	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
 	@echo Build complete for $(TARGET)
+
 
 # Clean rule
 clean:
+	@echo Cleaning $(TARGET)
 ifeq ($(OS),Windows_NT)
 	@if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)
+	@if exist $(TARGET).exe del /f $(TARGET).exe
+
 else
 	@rm -rf $(BUILD_DIR)
+	@rm $(TARGET)
 endif
+

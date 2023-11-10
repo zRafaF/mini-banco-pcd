@@ -11,6 +11,11 @@
     "files.associations": {
         "*.pl": "prolog",
         "fileops.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "trie.h": "c",
+        "stdbool.h": "c",
+        "stdlib.h": "c",
+        "db.h": "c",
+        "locale.h": "c"
     }
 }
