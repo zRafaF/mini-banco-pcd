@@ -38,4 +38,8 @@ all: $(TARGET)
 
 # Clean rule
 clean:
-	rmdir /s /q $(BUILD_DIR)
+ifeq ($(OS),Windows_NT)
+	@if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)
+else
+	@rm -rf $(BUILD_DIR)
+endif
