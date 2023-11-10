@@ -14,7 +14,11 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 TARGET = mini_banco_pcd
 
 # Ensure build directory exists
-dir_guard = @if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+ifeq ($(OS),Windows_NT)
+    dir_guard = @if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
+else
+    dir_guard = @mkdir -p $(BUILD_DIR)
+endif
 
 # Phony targets
 .PHONY: all clean
