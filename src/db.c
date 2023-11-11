@@ -1,6 +1,6 @@
 #include "db.h"
 
-DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]) {
+DataBase* createDataBase(char* staticPath) {
     DataBase* db = (DataBase*)malloc(sizeof(DataBase));
     if (db == NULL) {
         fprintf(stderr, "Erro durante alocação de memoria do banco de dados\n");

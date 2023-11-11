@@ -33,7 +33,7 @@ Instancia um novo banco de dados
 
 ATENÇÃO: É necessário deletar esse Nodo. Com a função `deleteDataBase()`
 */
-DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]);
+DataBase* createDataBase(char* staticPath);
 
 // Checa se um ID já existe e insere um novo PersonRecord ao banco de dados (Volátil)
 PersonRecord* insertNewRecord(DataBase* db, PersonRecord newRecord);

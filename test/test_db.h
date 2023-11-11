@@ -11,6 +11,7 @@
 #include "../include/globals.h"
 
 char testDbPathGlobal[PATH_STRING_SIZE];
+char* readTextFileBuffer = 0;
 
 char* _readTextFile(const char* filePath) {
     FILE* file = fopen(filePath, "r");
@@ -18,20 +19,19 @@ char* _readTextFile(const char* filePath) {
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
-    char* buffer = 0;
     long length;
 
     fseek(file, 0, SEEK_END);
     length = ftell(file);
     fseek(file, 0, SEEK_SET);
-    buffer = malloc(length + 1);
-    if (buffer) {
-        int cnt = fread(buffer, sizeof(char), length, file);
+    readTextFileBuffer = malloc(length + 1);
+    if (readTextFileBuffer) {
+        int cnt = fread(readTextFileBuffer, sizeof(char), length, file);
 
-        buffer[cnt] = '\0';
+        readTextFileBuffer[cnt] = '\0';
     }
     fclose(file);
-    return buffer;
+    return readTextFileBuffer;
 }
 
 void test_db__invertString(void) {
