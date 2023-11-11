@@ -34,4 +34,16 @@ ou criar os binários e executar:
 ```sh
 make test_run
 ```
+## Verificar vazamentos de memória
 
+Os vazamentos de memória foram verificados utilizando a ferramenta [Valgrind](https://valgrind.org/).
+
+Você pode executa-la nos testes ou em produção com o comando:
+
+```sh
+valgrind --leak-check=full ./mini_banco_pcd
+
+# Ou
+
+valgrind --leak-check=full ./mini_banco_pcd_test
+```

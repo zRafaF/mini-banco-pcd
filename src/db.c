@@ -102,8 +102,9 @@ ParseResult parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
     id[idSize] = '\0';
 
     size_t ageSize = 0;
-    for (size_t i = dataSize - 2; data[i] != ' '; i--) {
+    for (size_t i = dataSize - 1; data[i] != ' '; i--) {
         if (i < 0) return result;
+        if (ageString[i] == '\n') continue;
         ageString[ageSize] = data[i];
         ageSize++;
     }
@@ -115,8 +116,9 @@ ParseResult parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
     age = atoi(ageString);
 
     size_t nameSize = 0;
-    for (size_t i = idSize + 1; i < dataSize - ageSize - 2; i++) {
+    for (size_t i = idSize + 1; i < dataSize - ageSize - 1; i++) {
         if (i >= MAX_FULL_NAME_SIZE - idSize + 1) return result;
+        if (name[i] == '\n') continue;
 
         name[nameSize] = data[i];
         nameSize++;
