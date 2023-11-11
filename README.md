@@ -1,13 +1,14 @@
 # Mini Banco PCD
 
-Um mini banco de dados que implementa a estrutura de dados **trie**. 
+Um mini banco de dados que implementa a estrutura de dados **trie**. Acesse [aqui](https://github.com/zRafaF/mini-banco-pcd) o repositório no GitHub.
 
 **Funcionalidades**:
 * Indexa elementos do tipo `PersonRecord` através de seu `id` na **trie**.
 * Salva/Carrega os dados no disco.
 * Remove, Adiciona e Busca índices na **trie**. 
+* Imprime todos os `PersonRecord`
 
-## Compilando binários
+## Compilando
 
 Compile os binários com make através do seguinte comando
 
@@ -21,7 +22,7 @@ Ou utilize o comando a seguir para **compilar** e **executar** o programa.
 make run
 ```
 
-Mesmo não sendo o ideal sempre que o comando `make` for executado a pipeline removerá todas as dependências e as recompilará, para garantir que tudo esteja em sua versão mais recente.
+> Mesmo não sendo o ideal sempre que o comando `make` for executado a pipeline removerá todas as dependências e as recompilará, para garantir que tudo esteja em sua versão mais recente.
 
 ## Testes
 Para testes o [Unity](https://www.throwtheswitch.org/unity) está sendo utilizado. 
@@ -49,3 +50,7 @@ valgrind --leak-check=full ./mini_banco_pcd_test
 ```
 
 > Na aplicação não encontrei nenhum vazamento de memória.
+
+## Autor
+
+* Rafael F. Meneses

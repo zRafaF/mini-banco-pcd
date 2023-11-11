@@ -18,8 +18,8 @@ typedef struct
 
 typedef struct
 {
-    TrieNode* trie;
-    char staticPath[PATH_STRING_SIZE];
+    TrieNode* trie;                     // Ponteiro para a estrutura de dados
+    char staticPath[PATH_STRING_SIZE];  // Caminho para o arquivo do banco
 } DataBase;
 
 typedef struct
@@ -38,6 +38,7 @@ DataBase* createDataBase(char* staticPath);
 // Checa se um ID já existe e insere um novo PersonRecord ao banco de dados (Volátil)
 PersonRecord* insertNewRecord(DataBase* db, PersonRecord newRecord);
 
+// Procura no banco de dados um record pelo seu ID retorna NULL caso não encontre
 PersonRecord* findRecordById(DataBase* db, char id[MAX_ID_SIZE]);
 
 // Remove um PersonRecord por seu ID
@@ -56,9 +57,9 @@ DataBase* printEntireDB(DataBase* db);
 void _displayDBElement(TrieNode* node, int level);
 
 /*
-    Libera a memória alocada ao banco de dados.
+Libera a memória alocada ao banco de dados.
 
-    Ao deletar o Banco de dados as estruturas de dados relacionadas também serão excluídas
+Ao deletar o Banco de dados as estruturas de dados relacionadas também serão excluídas
 */
 void deleteDataBase(DataBase* db);
 
