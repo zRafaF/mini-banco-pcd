@@ -122,7 +122,7 @@ void test_trie_countNumOfElements(void) {
     insertWordIntoTrie(trie, "hello")->record = _createFakeRecord();
     TEST_ASSERT_EQUAL_INT(1, countNumOfElements(trie));
 
-    insertWordIntoTrie(trie, "hello")->record = _createFakeRecord();
+    insertWordIntoTrie(trie, "hello");
     TEST_ASSERT_EQUAL_INT(1, countNumOfElements(trie));
 
     insertWordIntoTrie(trie, "he")->record = _createFakeRecord();

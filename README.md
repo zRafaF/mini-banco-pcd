@@ -47,3 +47,5 @@ valgrind --leak-check=full ./mini_banco_pcd
 
 valgrind --leak-check=full ./mini_banco_pcd_test
 ```
+
+> Na aplicação não encontrei nenhum vazamento de memória.

@@ -24,6 +24,7 @@ char* _readTextFile(const char* filePath) {
     fseek(file, 0, SEEK_END);
     length = ftell(file);
     fseek(file, 0, SEEK_SET);
+    free(readTextFileBuffer);
     readTextFileBuffer = malloc(length + 1);
     if (readTextFileBuffer) {
         int cnt = fread(readTextFileBuffer, sizeof(char), length, file);
