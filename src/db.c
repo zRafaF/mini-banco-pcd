@@ -103,7 +103,6 @@ ParseResult parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
 
     size_t ageSize = 0;
     for (size_t i = dataSize - 2; data[i] != ' '; i--) {
-        if (i < 0) return result;
         ageString[ageSize] = data[i];
         ageSize++;
     }

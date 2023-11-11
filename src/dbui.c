@@ -13,11 +13,7 @@ bool processUi(DataBase* db) {
         userInput[len - 1] = '\0';
     }
 
-#ifndef _WIN32
     strcat(userInput, "\n");
-#endif
-
-    printf("inp: %s\n", userInput);
 
     return _processUserInput(db, userInput);
 }
