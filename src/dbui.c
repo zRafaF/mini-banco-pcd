@@ -95,6 +95,9 @@ void _addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
 
 void _removeFromDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
     if (dataSize <= MAX_ID_SIZE) {
+        if (data[dataSize - 1] == '\n')
+            data[dataSize - 1] = '\0';
+
         PersonRecord* record = findRecordById(db, data);
         if (record) {
             printf("Removido ");
