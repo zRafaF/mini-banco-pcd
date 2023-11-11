@@ -29,7 +29,7 @@ else
 endif
 
 # Phony targets
-.PHONY: all clean run test
+.PHONY: all clean run test mor
 
 # Build rule
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
@@ -67,6 +67,9 @@ endif
 test:
 	$(CC) $(CFLAGS_TEST) $(TEST_SRCS) $(UNITY_DIR)/src/unity.c  -o $(TARGET_TEST)
 	@echo Build complete for $(TARGET_TEST)
+
+
+test_run: test
 	@echo running Test...
 ifeq ($(OS),Windows_NT)
 	@if exist $(TARGET_TEST).exe .\\$(TARGET_TEST).exe
