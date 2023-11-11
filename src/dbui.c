@@ -59,7 +59,7 @@ bool _processUserInput(DataBase* db, char userInput[MAX_INPUT_SIZE]) {
             break;
 
         default:
-            return false;
+            printf("Invalido\n");
             break;
     }
 
