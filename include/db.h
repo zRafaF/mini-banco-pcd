@@ -68,6 +68,7 @@ bool loadRecordsFromDisk(DataBase* db);
 // Salva dados ao disco, procura o arquivo explicito no path e caso não o encontre cria um novo arquivo
 bool saveRecordsToDisk(DataBase* db);
 
+// Função privada: Recursão para imprimir os elementos ao disco
 void _printToDiskRecursive(TrieNode* node, int level, FILE* fp);
 
 // Conta o número de Recordes no banco
