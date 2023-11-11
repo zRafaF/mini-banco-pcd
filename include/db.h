@@ -28,8 +28,10 @@ ATENÇÃO: É necessário deletar esse Nodo. Com a função `deleteDataBase()`
 */
 DataBase* createDataBase();
 
-// Insere um novo PersonRecord ao banco de dados (Volátil)
+// Checa se um ID já existe e insere um novo PersonRecord ao banco de dados (Volátil)
 DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord);
+
+PersonRecord* findRecordById(DataBase* db, char id[MAX_ID_SIZE]);
 
 // Remove um PersonRecord por seu ID
 bool removeRecordById(DataBase* db, char id[MAX_ID_SIZE]);

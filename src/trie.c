@@ -48,7 +48,7 @@ TrieNode *insertWordIntoTrie(TrieNode *trie, char *word) {
     return currentNode;
 }
 
-bool removeWordOfTrie(TrieNode *trie, char *word) {
+TrieNode *findWordInTrie(TrieNode *trie, char *word) {
     TrieNode *lastNode = trie;
     for (size_t i = 0; word[i] != '\0'; i++) {
         const char currentChar = word[i];
@@ -58,8 +58,13 @@ bool removeWordOfTrie(TrieNode *trie, char *word) {
             lastNode = childNodePtr;
             continue;
         }
-        return false;
+        return NULL;
     }
+    return lastNode;
+}
+
+bool removeWordOfTrie(TrieNode *trie, char *word) {
+    TrieNode *lastNode = findWordInTrie(trie, word);
 
     if (hasChild(lastNode)) {
         free(lastNode->record);
@@ -181,8 +186,6 @@ void deleteTrie(TrieNode *trie) {
     if (trie->parent)
         deleteNode(trie);
     else {
-        if (trie->record)
-            free(trie->record);
         free(trie);
     }
 }
