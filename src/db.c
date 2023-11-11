@@ -11,7 +11,7 @@ DataBase* createDataBase() {
 }
 
 DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
-    if (findWordInTrie(db->trie, newRecord.id)) {
+    if (findRecordById(db, newRecord.id)) {
         return db;
     }
     TrieNode* node = insertWordIntoTrie(db->trie, newRecord.id);
@@ -31,6 +31,11 @@ DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
 }
 
 PersonRecord* findRecordById(DataBase* db, char id[MAX_ID_SIZE]) {
+    TrieNode* recordNode = findWordInTrie(db->trie, id);
+    if (recordNode) {
+        return (PersonRecord*)recordNode->record;
+    }
+    return NULL;
 }
 
 bool removeRecordById(DataBase* db, char id[MAX_ID_SIZE]) {

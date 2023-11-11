@@ -66,6 +66,8 @@ TrieNode *findWordInTrie(TrieNode *trie, char *word) {
 bool removeWordOfTrie(TrieNode *trie, char *word) {
     TrieNode *lastNode = findWordInTrie(trie, word);
 
+    if (lastNode == NULL) return false;
+
     if (hasChild(lastNode)) {
         free(lastNode->record);
         lastNode->record = NULL;

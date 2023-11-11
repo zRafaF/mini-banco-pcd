@@ -40,6 +40,9 @@ ATENÇÃO: Retorna o ultimo Nodo da trie o qual deve ser OBRIGATORIAMENTE atribu
 */
 TrieNode *insertWordIntoTrie(TrieNode *trie, char *word);
 
+// Procura uma palavra na trie, retorna seu nodo final
+TrieNode *findWordInTrie(TrieNode *trie, char *word);
+
 // Remove uma palavra em uma Trie
 bool removeWordOfTrie(TrieNode *trie, char *word);
 

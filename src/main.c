@@ -26,23 +26,23 @@ void stressTestMemory(size_t numOfIterations) {
 }
 
 int main() {
-    stressTestMemory(1);
-    // DataBase* myDb = createDataBase();
+    // stressTestMemory(1);
+    DataBase* myDb = createDataBase();
 
-    // insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
 
-    // insertNewRecord(myDb, createPersonRecord("cbcaaa", "Jhon", 25));
-    // insertNewRecord(myDb, createPersonRecord("abcaaa", "Jhon", 25));
-    // insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
-    // insertNewRecord(myDb, createPersonRecord("ab", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("cbcaaa", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("abcaaa", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("ab", "Jhon", 25));
 
-    // printEntireDB(myDb);
+    printEntireDB(myDb);
 
-    // removeRecordById(myDb, "ab");
-    // removeRecordById(myDb, "cbcaaa");
-    // printf("removido\n");
-    // printEntireDB(myDb);
+    removeRecordById(myDb, "ab");
+    removeRecordById(myDb, "cbcaaa");
+    printf("removido\n");
+    printEntireDB(myDb);
 
-    // deleteDataBase(myDb);
+    deleteDataBase(myDb);
     return 0;
 }
