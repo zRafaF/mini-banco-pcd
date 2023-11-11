@@ -12,6 +12,9 @@
 // Processa a UI "no terminal"
 bool processUi(DataBase* db);
 
+// Processa a string fornecida pelo usuário
+bool _processUserInput(DataBase* db, char userInput[MAX_INPUT_SIZE]);
+
 // Implementa o comando '?', procura um id no banco (volátil)
 void _searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
 

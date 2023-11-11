@@ -163,7 +163,7 @@ bool saveRecordsToDisk(DataBase* db) {
     unsigned int recordCount = countNumOfRecords(db);
 
     // Write the number of records as the first line
-    fprintf(fp, "%zu\n", recordCount);
+    fprintf(fp, "%u\n", recordCount);
 
     _printToDiskRecursive(db->trie, 0, fp);
 

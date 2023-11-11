@@ -4,10 +4,14 @@ bool processUi(DataBase* db) {
     char userInput[MAX_INPUT_SIZE];
 
     scanf("%[^\n]%*c", userInput);
-
-    char command = 'e';
-    char data[MAX_INPUT_SIZE];
     fflush(stdin);
+
+    return _processUserInput(db, userInput);
+}
+
+bool _processUserInput(DataBase* db, char userInput[MAX_INPUT_SIZE]) {
+    char command = 'F';
+    char data[MAX_INPUT_SIZE];
 
     size_t userInputSize = 0;
     size_t dataSize = 0;

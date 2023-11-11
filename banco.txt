@@ -1,7 +1,8 @@
-6
+7
 abc Pedro 12
 afd James Paul McCartney 81
 bab Alok 32
 baby Justin Bieber 24
 dafd Larissa de Macedo Machado 30
 dwiz Richard Starkey 83
+rusbe Michael Joseph Jackson 50
