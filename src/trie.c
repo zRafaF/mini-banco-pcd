@@ -171,3 +171,12 @@ void _countElems(TrieNode *node, unsigned int *elem, int level) {
         }
     }
 }
+
+void deleteTrie(TrieNode *trie) {
+    for (int i = 0; i < N_OF_CHILDREN; i++) {
+        if (trie->children[i]) {
+            deleteTrie(trie->children[i]);
+        }
+    }
+    deleteNode(trie);
+}

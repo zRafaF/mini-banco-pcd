@@ -66,5 +66,6 @@ void _displayDBElement(TrieNode* node, int level) {
 
 void deleteDataBase(DataBase* db) {
     deleteNode(db->trie);
+    free(db->trie);
     free(db);
 }
