@@ -84,11 +84,7 @@ unsigned int countNumOfElements(TrieNode *trie);
 // Função privada: Recursão para contar o numero de elementos da Trie
 void _countElems(TrieNode *node, unsigned int *elem, int level);
 
-/*
-Deleta a trie recursivamente, limpa os records
-
-ATENÇÃO: Não deleta a root
-*/
+// Deleta a trie recursivamente, limpa os records
 void deleteTrie(TrieNode *trie);
 
 #endif

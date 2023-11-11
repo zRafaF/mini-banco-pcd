@@ -38,7 +38,7 @@ bool processUi(DataBase* db) {
             _printDb(db);
             break;
         case 'S':
-            return false;
+            _saveDb(db);
             break;
         case 'F':
             return false;
@@ -61,11 +61,11 @@ void _searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
         }
     }
 
-    printf("ID %s nao encontrado.. ", data);
+    printf("ID %s nao encontrado.\n", data);
 }
 
 void _addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
-    PersonRecord newRecord = _parseData(data, dataSize);
+    PersonRecord newRecord = parseData(data, dataSize);
     insertNewRecord(db, newRecord);
 }
 
@@ -87,45 +87,6 @@ void _printDb(DataBase* db) {
     printEntireDB(db);
 }
 
-PersonRecord _parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
-    char id[MAX_ID_SIZE];
-    char name[MAX_FULL_NAME_SIZE];
-    int age;
-
-    size_t idSize = 0;
-    for (size_t i = 0; data[i] != ' '; i++) {
-        id[idSize] = data[i];
-        idSize++;
-    }
-    id[idSize] = '\0';
-
-    char ageString[MAX_AGE_CHARS_SIZE];
-    size_t ageSize = 0;
-    for (size_t i = dataSize - 1; data[i] != ' '; i--) {
-        ageString[ageSize] = data[i];
-        ageSize++;
-    }
-    ageString[ageSize] = '\0';
-    _invertString(ageString);
-    age = atoi(ageString);
-
-    size_t nameSize = 0;
-    for (size_t i = idSize + 1; i < dataSize - ageSize - 1; i++) {
-        name[nameSize] = data[i];
-        nameSize++;
-    }
-    name[nameSize] = '\0';
-
-    return createPersonRecord(id, name, age);
-}
-
-void _invertString(char* str) {
-    int length = strlen(str);
-    int i, j;
-
-    for (i = 0, j = length - 1; i < j; i++, j--) {
-        char temp = str[i];
-        str[i] = str[j];
-        str[j] = temp;
-    }
+void _saveDb(DataBase* db) {
+    saveRecordsToDisk(db);
 }

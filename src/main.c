@@ -1,13 +1,10 @@
-#include <locale.h>
-#include <stdio.h>
-
 #include "db.h"
 #include "dbui.h"
-#include "fileops.h"
-#include "trie.h"
 
 int main() {
-    DataBase* myDb = createDataBase();
+    DataBase* myDb = createDataBase("banco.txt");
+
+    loadRecordsFromDisk(myDb);
 
     while (processUi(myDb)) {
     }

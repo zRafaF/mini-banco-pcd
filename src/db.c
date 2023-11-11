@@ -1,12 +1,14 @@
 #include "db.h"
 
-DataBase* createDataBase() {
+DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]) {
     DataBase* db = (DataBase*)malloc(sizeof(DataBase));
     if (db == NULL) {
         fprintf(stderr, "Erro durante alocação de memoria do banco de dados\n");
         exit(EXIT_FAILURE);
     }
     db->trie = newTrie();
+    strcpy(db->staticPath, staticPath);
+
     return db;
 }
 
@@ -78,4 +80,77 @@ void _displayDBElement(TrieNode* node, int level) {
 void deleteDataBase(DataBase* db) {
     deleteTrie(db->trie);
     free(db);
+}
+
+PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
+    char id[MAX_ID_SIZE];
+    char name[MAX_FULL_NAME_SIZE];
+    int age;
+
+    size_t idSize = 0;
+    for (size_t i = 0; data[i] != ' '; i++) {
+        id[idSize] = data[i];
+        idSize++;
+    }
+    id[idSize] = '\0';
+
+    char ageString[MAX_AGE_CHARS_SIZE];
+    size_t ageSize = 0;
+    for (size_t i = dataSize - 1; data[i] != ' '; i--) {
+        ageString[ageSize] = data[i];
+        ageSize++;
+    }
+    ageString[ageSize] = '\0';
+    _invertString(ageString);
+    age = atoi(ageString);
+
+    size_t nameSize = 0;
+    for (size_t i = idSize + 1; i < dataSize - ageSize - 1; i++) {
+        name[nameSize] = data[i];
+        nameSize++;
+    }
+    name[nameSize] = '\0';
+
+    return createPersonRecord(id, name, age);
+}
+
+void _invertString(char* str) {
+    int length = strlen(str);
+    int i, j;
+
+    for (i = 0, j = length - 1; i < j; i++, j--) {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+    }
+}
+
+bool loadRecordsFromDisk(DataBase* db) {
+    FILE* fp = fopen(db->staticPath, "r");
+
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Não foi possível abrir o arquivo no caminho: %s\n", db->staticPath);
+        return false;
+    }
+
+    char buffer[MAX_DATA_SIZE];
+    bool doOnce = true;
+    while (fgets(buffer, MAX_DATA_SIZE, fp)) {
+        if (doOnce) {
+            doOnce = false;
+            continue;
+        }  // skips the first line
+        const size_t bufferDataSize = strlen(buffer);
+
+        PersonRecord newRecord = parseData(buffer, bufferDataSize);
+        insertNewRecord(db, createPersonRecord(newRecord.id, newRecord.fullName, newRecord.age));
+    }
+
+    // close the file
+    fclose(fp);
+    return true;
+}
+
+bool saveRecordsToDisk(DataBase* db) {
+    return true;
 }

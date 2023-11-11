@@ -1,6 +1,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#define PATH_STRING_SIZE 256
+
 #define MAX_ID_SIZE 30
 #define MAX_FULL_NAME_SIZE 1000
 #define MAX_AGE_CHARS_SIZE 2

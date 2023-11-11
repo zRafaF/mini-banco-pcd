@@ -24,10 +24,7 @@ void _removeFromDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
 // Implementa o comando 'P', imprime todo o banco (volátil)
 void _printDb(DataBase* db);
 
-// Faz o parsing do input do usuário para um novo PersonRecord
-PersonRecord _parseData(char data[MAX_DATA_SIZE], size_t dataSize);
-
-// Inverte uma string
-void _invertString(char* str);
+// Implementa o comando 'S', salva o banco para o disco (persistente)
+void _saveDb(DataBase* db);
 
 #endif

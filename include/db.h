@@ -19,6 +19,7 @@ typedef struct
 typedef struct
 {
     TrieNode* trie;
+    char staticPath[PATH_STRING_SIZE];
 } DataBase;
 
 /*
@@ -26,7 +27,7 @@ Instancia um novo banco de dados
 
 ATENÇÃO: É necessário deletar esse Nodo. Com a função `deleteDataBase()`
 */
-DataBase* createDataBase();
+DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]);
 
 // Checa se um ID já existe e insere um novo PersonRecord ao banco de dados (Volátil)
 DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord);
@@ -54,5 +55,17 @@ void _displayDBElement(TrieNode* node, int level);
     Ao deletar o Banco de dados as estruturas de dados relacionadas também serão excluídas
 */
 void deleteDataBase(DataBase* db);
+
+// Faz o parsing do input do usuário para um novo PersonRecord
+PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize);
+
+// Inverte uma string
+void _invertString(char* str);
+
+// Carrega dados do disco a partir Path do db
+bool loadRecordsFromDisk(DataBase* db);
+
+// Salva dados ao disco, procura o arquivo explicito no path e caso não o encontre cria um novo arquivo
+bool saveRecordsToDisk(DataBase* db);
 
 #endif

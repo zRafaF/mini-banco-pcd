@@ -17,6 +17,9 @@
         "stdlib.h": "c",
         "db.h": "c",
         "locale.h": "c",
-        "assert.h": "c"
+        "assert.h": "c",
+        "dbui.h": "c",
+        "globals.h": "c",
+        "string.h": "c"
     }
 }
