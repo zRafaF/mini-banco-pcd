@@ -17,11 +17,20 @@ typedef struct
     void *parent;                   // NULL se for a Root
 } TrieNode;
 
+// Converte um char para o index do `children`
 int charToTrieIdx(char character);
+
+// Converte um index do `children` para seu char
 char trieIdxToChar(int trieIdx);
 
+// Função privada: Cria um novo nodo
 TrieNode *_newTrieNode(void *record, TrieNode *parent);
 
+/*
+Instancia uma nova Trie e retorna o ponteiro para a root
+
+ATENÇÃO: É necessário deletar esse Nodo.
+*/
 TrieNode *newTrie();
 
 /*
@@ -31,21 +40,35 @@ ATENÇÃO: Retorna o ultimo Nodo da trie o qual deve ser OBRIGATORIAMENTE atribu
 */
 TrieNode *insertWordIntoTrie(TrieNode *trie, char *word);
 
+// Verifica se um nodo possui um filho
 bool hasChild(TrieNode *trie);
 
+// Deleta um nodo e seus `children` recursivamente
 void deleteNode(TrieNode *trie);
 
+// Verifica se um nodo é uma folha
 bool isLeaf(TrieNode *tree);
 
+// Retorna o nodo filho com um determinado valor
 TrieNode *getChild(TrieNode *tree, char childChar);
 
+// Retorna o nodo filho em um determinado índice
 TrieNode *getChildAt(TrieNode *tree, int childIdx);
 
+// Imprime todos os elementos contidos na Trie
 TrieNode *printTrie(TrieNode *trie);
 
+// Função privada: Recursão para imprimir a Trie
 void _displayTrie(TrieNode *node, char str[], int level);
 
+/*
+Conta o numero de elementos guardados na Trie
+
+ATENÇÃO: Essa função travesa por toda a trie
+*/
 unsigned int countNumOfElements(TrieNode *trie);
+
+// Função privada: Recursão para contar o numero de elementos da Trie
 void _countElems(TrieNode *node, unsigned int *elem, int level);
 
 #endif

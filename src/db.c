@@ -9,6 +9,7 @@ DataBase* createDataBase() {
     db->trie = newTrie();
     return db;
 }
+
 DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
     TrieNode* node = insertWordIntoTrie(db->trie, newRecord.id);
     PersonRecord* recordPtr = (PersonRecord*)malloc(sizeof(PersonRecord));
