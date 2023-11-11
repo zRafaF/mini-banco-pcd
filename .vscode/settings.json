@@ -22,6 +22,7 @@
         "globals.h": "c",
         "string.h": "c",
         "unity.h": "c",
-        "test_trie.h": "c"
+        "test_trie.h": "c",
+        "test_db.h": "c"
     }
 }

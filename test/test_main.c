@@ -1,20 +1,27 @@
-#include "Unity-master/src/unity.h"
-#include "stdio.h"
+#include <unity.h>
 
-void setUp(void) {}    /* Is run before every test, put unit init calls here. */
-void tearDown(void) {} /* Is run after every test, put unit clean-up calls here. */
+#include "test_db.h"
+#include "test_trie.h"
 
-int add(int a, int b) {
-    return a + b;
-}
-
-void test_add() {
-    TEST_ASSERT_EQUAL_INT(5, add(2, 3));
-    TEST_ASSERT_EQUAL_INT(-1, add(2, -3));
-}
+void setUp(void) {}
+void tearDown(void) {}
 
 int main() {
     UNITY_BEGIN();
-    RUN_TEST(test_add);
+
+    // Testando Trie
+    RUN_TEST(test_trie_charToTrieIdx);
+    RUN_TEST(test_trie_trieIdxToChar);
+    RUN_TEST(test_trie_newTrie);
+    RUN_TEST(test_trie_insertAndRemoveWordOfTrie);
+    RUN_TEST(test_trie_isLeaf);
+    RUN_TEST(test_trie_getChild);
+    RUN_TEST(test_trie_getChildAt);
+    RUN_TEST(test_trie_countNumOfElements);
+    RUN_TEST(test_trie_deleteNode);
+
+    // Testando o Banco de Dados
+    RUN_TEST(test_db__invertString);
+
     return UNITY_END();
 }

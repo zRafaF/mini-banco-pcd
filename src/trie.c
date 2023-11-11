@@ -60,7 +60,9 @@ TrieNode *findWordInTrie(TrieNode *trie, char *word) {
         }
         return NULL;
     }
-    return lastNode;
+    if (lastNode->record)
+        return lastNode;
+    return NULL;
 }
 
 bool removeWordOfTrie(TrieNode *trie, char *word) {
@@ -134,6 +136,8 @@ TrieNode *getChild(TrieNode *tree, char childChar) {
 }
 
 TrieNode *getChildAt(TrieNode *tree, int childIdx) {
+    assert(childIdx >= 0 && childIdx < N_OF_CHILDREN);
+
     return (TrieNode *)(tree->children[childIdx]);
 }
 

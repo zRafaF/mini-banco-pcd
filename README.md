@@ -16,6 +16,13 @@ make run
 
 Mesmo não sendo o ideal sempre que o comando `make` for executado a pipeline removerá todas as dependências e as recompilará, para garantir que tudo esteja em sua versão mais recente.
 
+## Testes
+Para testes o [Unity](https://www.throwtheswitch.org/unity) está sendo utilizado. Você pode executar os testes com
+
+```sh
+make test
+```
+
 ## Outros
 
 ```

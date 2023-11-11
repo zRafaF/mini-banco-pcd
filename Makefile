@@ -57,9 +57,11 @@ clean:
 ifeq ($(OS),Windows_NT)
 	@if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR) 2>nul
 	@if exist $(TARGET).exe del /f $(TARGET).exe 2>nul
+	@if exist $(TARGET_TEST).exe del /f $(TARGET_TEST).exe 2>nul
 else
 	@if [ -d "$(BUILD_DIR)" ]; then rm -rf $(BUILD_DIR); fi
 	@if [ -e "$(TARGET)" ]; then rm -f $(TARGET); fi
+	@if [ -e "$(TARGET_TEST)" ]; then rm -f $(TARGET_TEST); fi
 endif
 
 test:
