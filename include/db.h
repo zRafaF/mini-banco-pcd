@@ -5,12 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "globals.h"
 #include "trie.h"
 
 typedef struct
 {
-    char id[16];
-    char fullName[128];
+    char id[MAX_ID_SIZE];
+    char fullName[MAX_FULL_NAME_SIZE];
     int age;
 } PersonRecord;
 

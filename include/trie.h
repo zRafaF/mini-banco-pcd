@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "globals.h"
+
 typedef struct
 {
     void *record;        // NULL se não for terminal
@@ -100,28 +102,21 @@ TrieNode *getChildAt(TrieNode *tree, int childIdx) {
 
 TrieNode *printTrie(TrieNode *trie) {
     int level = 0;
-    char str[20];
+    char str[MAX_ID_SIZE];
     printf("Imprimindo conteudo da trie:\n");
-    display(trie, str, level);
+    _displayTrie(trie, str, level);
 }
 
-void display(TrieNode *root, char str[], int level) {
-    // If node is leaf node, it indicates end
-    // of string, so a null character is added
-    // and string is displayed
-    if (isLeaf(root)) {
+void _displayTrie(TrieNode *node, char str[], int level) {
+    if (isLeaf(node)) {
         str[level] = '\0';
         printf("%s\n", str);
     }
 
     for (int i = 0; i < N_OF_CHILDREN; i++) {
-        // if NON NULL child is found
-        // add parent key to str and
-        // call the display function recursively
-        // for child node
-        if (root->children[i]) {
+        if (node->children[i]) {
             str[level] = i + 'a';
-            display(root->children[i], str, level + 1);
+            _displayTrie(node->children[i], str, level + 1);
         }
     }
 }
