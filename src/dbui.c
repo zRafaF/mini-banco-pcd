@@ -24,20 +24,18 @@ bool processUi(DataBase* db) {
     }
     data[dataSize] = '\0';
 
-    printf("command: %c, data: %s\n", command, data);
-
     switch (command) {
         case '?':
-            searchDBForId(db, data, dataSize);
+            _searchDBForId(db, data, dataSize);
             break;
         case '+':
-            addToDb(db, data, dataSize);
+            _addToDb(db, data, dataSize);
             break;
         case '-':
-            return false;
+            _removeFromDb(db, data, dataSize);
             break;
         case 'P':
-            return false;
+            _printDb(db);
             break;
         case 'S':
             return false;
@@ -54,7 +52,7 @@ bool processUi(DataBase* db) {
     return true;
 }
 
-void searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
+void _searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
     if (dataSize <= MAX_ID_SIZE) {
         PersonRecord* record = findRecordById(db, data);
         if (record) {
@@ -66,9 +64,27 @@ void searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
     printf("ID %s nao encontrado.. ", data);
 }
 
-void addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
+void _addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
     PersonRecord newRecord = _parseData(data, dataSize);
     insertNewRecord(db, newRecord);
+}
+
+void _removeFromDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
+    if (dataSize <= MAX_ID_SIZE) {
+        PersonRecord* record = findRecordById(db, data);
+        if (record) {
+            printf("Removido ");
+            printPersonRecord(record);
+            removeRecordById(db, record->id);
+            return;
+        }
+    }
+
+    printf("ID %s nao encontrado.. ", data);
+}
+
+void _printDb(DataBase* db) {
+    printEntireDB(db);
 }
 
 PersonRecord _parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
@@ -98,6 +114,7 @@ PersonRecord _parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
         name[nameSize] = data[i];
         nameSize++;
     }
+    name[nameSize] = '\0';
 
     return createPersonRecord(id, name, age);
 }

@@ -13,10 +13,16 @@
 bool processUi(DataBase* db);
 
 // Implementa o comando '?', procura um id no banco (volátil)
-void searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
+void _searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
 
 // Implementa o comando '+', realiza o parsing e adiciona a entrada ao banco (volátil)
-void addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
+void _addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
+
+// Implementa o comando '-', remove um PersonRecord do banco (volátil)
+void _removeFromDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize);
+
+// Implementa o comando 'P', imprime todo o banco (volátil)
+void _printDb(DataBase* db);
 
 // Faz o parsing do input do usuário para um novo PersonRecord
 PersonRecord _parseData(char data[MAX_DATA_SIZE], size_t dataSize);
