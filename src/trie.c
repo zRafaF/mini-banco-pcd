@@ -178,5 +178,9 @@ void deleteTrie(TrieNode *trie) {
             deleteTrie(trie->children[i]);
         }
     }
-    deleteNode(trie);
+    if (trie->parent)
+        deleteNode(trie);
+    else {
+        free(trie);
+    }
 }
