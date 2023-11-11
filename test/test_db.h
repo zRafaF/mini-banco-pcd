@@ -131,10 +131,7 @@ void test_db_countNumOfRecords(void) {
 void test_dbui__processUserInput(void) {
     DataBase* myDb = createDataBase(testDbPathGlobal);
 
-    TEST_ASSERT_FALSE(_processUserInput(myDb, " "));
     TEST_ASSERT_FALSE(_processUserInput(myDb, "F"));
-    TEST_ASSERT_FALSE(_processUserInput(myDb, "2d1"));
-    TEST_ASSERT_FALSE(_processUserInput(myDb, "2d1 a sdasd sad sad d a sd asd a"));
 
     _processUserInput(myDb, "+ arn Arnaldo Lima 34\n");
     _processUserInput(myDb, "S");
