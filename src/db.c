@@ -7,8 +7,7 @@ DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]) {
         exit(EXIT_FAILURE);
     }
     db->trie = newTrie();
-    strcpy(db->staticPath, staticPath);
-
+    strncpy(db->staticPath, staticPath, PATH_STRING_SIZE - 1);
     return db;
 }
 
@@ -24,8 +23,8 @@ PersonRecord* insertNewRecord(DataBase* db, PersonRecord newRecord) {
         exit(EXIT_FAILURE);
     }
 
-    strcpy(recordPtr->id, newRecord.id);
-    strcpy(recordPtr->fullName, newRecord.fullName);
+    strncpy(recordPtr->id, newRecord.id, MAX_ID_SIZE - 1);
+    strncpy(recordPtr->fullName, newRecord.fullName, MAX_FULL_NAME_SIZE - 1);
     recordPtr->age = newRecord.age;
     node->record = recordPtr;
 
@@ -46,8 +45,8 @@ bool removeRecordById(DataBase* db, char id[MAX_ID_SIZE]) {
 
 PersonRecord createPersonRecord(char id[MAX_ID_SIZE], char fullName[MAX_FULL_NAME_SIZE], int age) {
     PersonRecord newRecord;
-    strcpy(newRecord.id, id);
-    strcpy(newRecord.fullName, fullName);
+    strncpy(newRecord.id, id, MAX_ID_SIZE - 1);
+    strncpy(newRecord.fullName, fullName, MAX_FULL_NAME_SIZE - 1);
     newRecord.age = age;
 
     return newRecord;
@@ -83,8 +82,9 @@ void deleteDataBase(DataBase* db) {
 }
 
 PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
-    char id[MAX_ID_SIZE];
-    char name[MAX_FULL_NAME_SIZE];
+    char id[MAX_ID_SIZE + 1];
+    char name[MAX_FULL_NAME_SIZE + 1];
+    char ageString[MAX_AGE_CHARS_SIZE + 1];
     int age;
 
     size_t idSize = 0;
@@ -94,18 +94,18 @@ PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
     }
     id[idSize] = '\0';
 
-    char ageString[MAX_AGE_CHARS_SIZE];
     size_t ageSize = 0;
-    for (size_t i = dataSize - 1; data[i] != ' '; i--) {
+    for (size_t i = dataSize - 2; data[i] != ' '; i--) {
         ageString[ageSize] = data[i];
         ageSize++;
     }
+
     ageString[ageSize] = '\0';
     _invertString(ageString);
     age = atoi(ageString);
 
     size_t nameSize = 0;
-    for (size_t i = idSize + 1; i < dataSize - ageSize - 1; i++) {
+    for (size_t i = idSize + 1; i < dataSize - ageSize - 2; i++) {
         name[nameSize] = data[i];
         nameSize++;
     }
@@ -146,7 +146,6 @@ bool loadRecordsFromDisk(DataBase* db) {
         insertNewRecord(db, createPersonRecord(newRecord.id, newRecord.fullName, newRecord.age));
     }
 
-    // close the file
     fclose(fp);
     return true;
 }
@@ -159,15 +158,12 @@ bool saveRecordsToDisk(DataBase* db) {
         return false;
     }
 
-    // Assuming you have a function getRecordCount that returns the number of records in your database
     unsigned int recordCount = countNumOfRecords(db);
 
-    // Write the number of records as the first line
     fprintf(fp, "%u\n", recordCount);
 
     _printToDiskRecursive(db->trie, 0, fp);
 
-    // Close the file
     fclose(fp);
     return true;
 }

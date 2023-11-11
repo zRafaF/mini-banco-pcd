@@ -6,12 +6,13 @@ void runTest(DataBase* db) {
     _processUserInput(db, "? afd");
     _processUserInput(db, "? afdg");
     _processUserInput(db, "? rusbe");
-    _processUserInput(db, "+ rusbe Michael Joseph Jackson 50\n");
+    _processUserInput(db, "+ rusbe Michael Joseph Jackson 50");
     _processUserInput(db, "? rusbe");
     _processUserInput(db, "- afdg");
     _processUserInput(db, "? afdg");
     _processUserInput(db, "+ baby Justin Bieber 24");
     _processUserInput(db, "+ bab Alok 32");
+    _processUserInput(db, "+ mike rafael 32");
     _processUserInput(db, "? baby");
     _processUserInput(db, "- dwiop");
     _processUserInput(db, "P");
@@ -24,10 +25,10 @@ int main() {
 
     loadRecordsFromDisk(myDb);
 
-    runTest(myDb);
+    // runTest(myDb);
 
-    // while (processUi(myDb)) {
-    // }
+    while (processUi(myDb)) {
+    }
 
     deleteDataBase(myDb);
     return 0;
