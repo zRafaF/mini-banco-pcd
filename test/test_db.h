@@ -10,45 +10,26 @@
 #include "../include/dbui.h"
 #include "../include/globals.h"
 
-#ifdef _WIN32
-#include <io.h>
-#define fseeko _fseeki64
-#define ftello _ftelli64
-#else
-#include <unistd.h>
-#define fseeko fseek
-#define ftello ftell
-#endif
-
 char testDbPathGlobal[PATH_STRING_SIZE];
 
 char* _readTextFile(const char* filePath) {
-    FILE* file = fopen(filePath, "rb");
+    FILE* file = fopen(filePath, "r");
     if (file == NULL) {
         perror("Error opening file");
         exit(EXIT_FAILURE);
     }
+    char* buffer = 0;
+    long length;
 
-    fseeko(file, 0, SEEK_END);
-    long length = ftello(file);
-    fseeko(file, 0, SEEK_SET);
-
-    char* buffer = (char*)malloc(length + 1);
+    fseek(file, 0, SEEK_END);
+    length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    buffer = malloc(length + 1);
     if (buffer) {
-        size_t bytesRead = fread(buffer, 1, length, file);
-        buffer[bytesRead] = '\0';
+        int cnt = fread(buffer, sizeof(char), length, file);
 
-// Handle newline characters on Windows
-#ifdef _WIN32
-        for (size_t i = 0; i < bytesRead; ++i) {
-            if (buffer[i] == '\r' && buffer[i + 1] == '\n') {
-                memmove(&buffer[i], &buffer[i + 1], bytesRead - i);
-                --bytesRead;
-            }
-        }
-#endif
+        buffer[cnt] = '\0';
     }
-
     fclose(file);
     return buffer;
 }

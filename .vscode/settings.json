@@ -24,6 +24,7 @@
         "unity.h": "c",
         "test_trie.h": "c",
         "test_db.h": "c",
-        "io.h": "c"
+        "io.h": "c",
+        "unistd.h": "c"
     }
 }
