@@ -47,6 +47,7 @@ TrieNode *insertWordIntoTrie(TrieNode *trie, char *word) {
     TrieNode *currentNode = trie;
     for (size_t i = 0; word[i] != '\0'; i++) {
         const char currentChar = word[i];
+
         TrieNode *newNode = _newTrieNode(NULL, currentNode);
         currentNode->children[charToTrieIdx(currentChar)] = newNode;
         currentNode = newNode;
@@ -100,7 +101,7 @@ TrieNode *getChildAt(TrieNode *tree, int childIdx) {
 TrieNode *printTrie(TrieNode *trie) {
     int level = 0;
     char str[20];
-    printf("Imprimindo conteúdo da trie:\n");
+    printf("Imprimindo conteudo da trie:\n");
     display(trie, str, level);
 }
 

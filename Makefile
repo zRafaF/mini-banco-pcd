@@ -21,7 +21,7 @@ else
 endif
 
 # Phony targets
-.PHONY: all clean
+.PHONY: all clean run
 
 # Build rule
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
@@ -32,13 +32,18 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 # Main target with clean and all as dependencies
 $(TARGET): clean all
 
-# Default target
-all: 
+all: run
 	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
 	@echo Build complete for $(TARGET)
 
 
-# Clean rule
+run: $(TARGET)
+ifeq ($(OS),Windows_NT)
+	@if exist $(TARGET).exe .\\$(TARGET).exe
+else
+	./$(TARGET)
+endif
+
 clean:
 	@echo Cleaning $(TARGET)
 ifeq ($(OS),Windows_NT)

@@ -35,8 +35,6 @@ DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
     TrieNode* node = insertWordIntoTrie(db->trie, newRecord.id);
     PersonRecord* recordPtr = (PersonRecord*)malloc(sizeof(PersonRecord));
 
-    printf("node: %p", node);
-
     if (recordPtr == NULL) {
         fprintf(stderr, "Erro durante alocação de memoria ao novo record\n");
         exit(EXIT_FAILURE);
