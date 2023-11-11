@@ -7,6 +7,7 @@ bool processUi(DataBase* db) {
 
     char command = 'e';
     char data[MAX_INPUT_SIZE];
+    fflush(stdin);
 
     size_t userInputSize = 0;
     size_t dataSize = 0;
@@ -66,7 +67,13 @@ void _searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
 
 void _addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
     PersonRecord newRecord = parseData(data, dataSize);
-    insertNewRecord(db, newRecord);
+    PersonRecord* insertedRecord = insertNewRecord(db, newRecord);
+    if (insertedRecord == NULL) {
+        fprintf(stderr, "Erro: ID repetido\n");
+        return;
+    }
+    printf("Inserido ");
+    printPersonRecord(insertedRecord);
 }
 
 void _removeFromDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
@@ -80,7 +87,7 @@ void _removeFromDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
         }
     }
 
-    printf("ID %s nao encontrado.. ", data);
+    printf("ID %s nao encontrado.\n", data);
 }
 
 void _printDb(DataBase* db) {
@@ -88,5 +95,7 @@ void _printDb(DataBase* db) {
 }
 
 void _saveDb(DataBase* db) {
-    saveRecordsToDisk(db);
+    if (saveRecordsToDisk(db)) {
+        printf("%s salvo\n", db->staticPath);
+    }
 }

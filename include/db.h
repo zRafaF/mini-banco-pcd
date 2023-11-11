@@ -30,7 +30,7 @@ ATENÇÃO: É necessário deletar esse Nodo. Com a função `deleteDataBase()`
 DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]);
 
 // Checa se um ID já existe e insere um novo PersonRecord ao banco de dados (Volátil)
-DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord);
+PersonRecord* insertNewRecord(DataBase* db, PersonRecord newRecord);
 
 PersonRecord* findRecordById(DataBase* db, char id[MAX_ID_SIZE]);
 
@@ -67,5 +67,10 @@ bool loadRecordsFromDisk(DataBase* db);
 
 // Salva dados ao disco, procura o arquivo explicito no path e caso não o encontre cria um novo arquivo
 bool saveRecordsToDisk(DataBase* db);
+
+void _printToDiskRecursive(TrieNode* node, int level, FILE* fp);
+
+// Conta o número de Recordes no banco
+unsigned int countNumOfRecords(DataBase* db);
 
 #endif

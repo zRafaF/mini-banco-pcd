@@ -12,9 +12,9 @@ DataBase* createDataBase(char staticPath[PATH_STRING_SIZE]) {
     return db;
 }
 
-DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
+PersonRecord* insertNewRecord(DataBase* db, PersonRecord newRecord) {
     if (findRecordById(db, newRecord.id)) {
-        return db;
+        return NULL;
     }
     TrieNode* node = insertWordIntoTrie(db->trie, newRecord.id);
     PersonRecord* recordPtr = (PersonRecord*)malloc(sizeof(PersonRecord));
@@ -29,7 +29,7 @@ DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
     recordPtr->age = newRecord.age;
     node->record = recordPtr;
 
-    return db;
+    return node->record;
 }
 
 PersonRecord* findRecordById(DataBase* db, char id[MAX_ID_SIZE]) {
@@ -152,5 +152,39 @@ bool loadRecordsFromDisk(DataBase* db) {
 }
 
 bool saveRecordsToDisk(DataBase* db) {
+    FILE* fp = fopen(db->staticPath, "w");
+
+    if (fp == NULL) {
+        fprintf(stderr, "Error: Unable to open the file at path: %s\n", db->staticPath);
+        return false;
+    }
+
+    // Assuming you have a function getRecordCount that returns the number of records in your database
+    unsigned int recordCount = countNumOfRecords(db);
+
+    // Write the number of records as the first line
+    fprintf(fp, "%zu\n", recordCount);
+
+    _printToDiskRecursive(db->trie, 0, fp);
+
+    // Close the file
+    fclose(fp);
     return true;
+}
+
+void _printToDiskRecursive(TrieNode* node, int level, FILE* fp) {
+    if (node->record != NULL) {
+        PersonRecord* record = (PersonRecord*)(node->record);
+        fprintf(fp, "%s %s %i\n", record->id, record->fullName, record->age);
+    }
+
+    for (int i = 0; i < N_OF_CHILDREN; i++) {
+        if (node->children[i]) {
+            _printToDiskRecursive(node->children[i], level + 1, fp);
+        }
+    }
+}
+
+unsigned int countNumOfRecords(DataBase* db) {
+    return countNumOfElements(db->trie);
 }

@@ -1,6 +1,7 @@
-5
+6
+abc Pedro 12
 afd James Paul McCartney 81
-dwiz Richard Starkey 83
-afdg John Winston Ono Lennon 40
+bab Alok 32
+baby Justin Bieber 24
 dafd Larissa de Macedo Machado 30
-dwiop George Harrison 58
+dwiz Richard Starkey 83
