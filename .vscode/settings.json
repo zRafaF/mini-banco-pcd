@@ -9,7 +9,6 @@
     "editor.formatOnSave": true,
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google,  ColumnLimit: 0, IndentWidth: 4, TabWidth: 4}",
     "files.associations": {
-        "*.pl": "prolog",
         "fileops.h": "c",
         "stdio.h": "c",
         "trie.h": "c",

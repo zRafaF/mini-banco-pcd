@@ -22,6 +22,12 @@ typedef struct
     char staticPath[PATH_STRING_SIZE];
 } DataBase;
 
+typedef struct
+{
+    PersonRecord result;  // Resultado do parsing
+    int error;            // 0 se não houver erros
+} ParseResult;
+
 /*
 Instancia um novo banco de dados
 
@@ -57,7 +63,7 @@ void _displayDBElement(TrieNode* node, int level);
 void deleteDataBase(DataBase* db);
 
 // Faz o parsing do input do usuário para um novo PersonRecord
-PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize);
+ParseResult parseData(char data[MAX_DATA_SIZE], size_t dataSize);
 
 // Inverte uma string
 void _invertString(char* str);

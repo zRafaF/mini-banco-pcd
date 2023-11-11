@@ -81,24 +81,34 @@ void deleteDataBase(DataBase* db) {
     free(db);
 }
 
-PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
+ParseResult parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
+    ParseResult result;
+    result.error = 1;
+
     char id[MAX_ID_SIZE + 1];
     char name[MAX_FULL_NAME_SIZE + 1];
     char ageString[MAX_AGE_CHARS_SIZE + 1];
     int age;
 
     size_t idSize = 0;
-    for (size_t i = 0; data[i] != ' '; i++) {
+    for (size_t i = 0; data[i] != ' ' || i >= MAX_ID_SIZE; i++) {
+        if (i >= MAX_ID_SIZE) return result;
         id[idSize] = data[i];
         idSize++;
     }
+    if (idSize == 0)
+        return result;
+
     id[idSize] = '\0';
 
     size_t ageSize = 0;
     for (size_t i = dataSize - 2; data[i] != ' '; i--) {
+        if (i < 0) return result;
         ageString[ageSize] = data[i];
         ageSize++;
     }
+    if (ageSize == 0)
+        return result;
 
     ageString[ageSize] = '\0';
     _invertString(ageString);
@@ -106,12 +116,19 @@ PersonRecord parseData(char data[MAX_DATA_SIZE], size_t dataSize) {
 
     size_t nameSize = 0;
     for (size_t i = idSize + 1; i < dataSize - ageSize - 2; i++) {
+        if (i >= MAX_FULL_NAME_SIZE - idSize + 1) return result;
+
         name[nameSize] = data[i];
         nameSize++;
     }
+    if (nameSize == 0)
+        return result;
+
     name[nameSize] = '\0';
 
-    return createPersonRecord(id, name, age);
+    result.error = 0;
+    result.result = createPersonRecord(id, name, age);
+    return result;
 }
 
 void _invertString(char* str) {
@@ -129,7 +146,6 @@ bool loadRecordsFromDisk(DataBase* db) {
     FILE* fp = fopen(db->staticPath, "r");
 
     if (fp == NULL) {
-        fprintf(stderr, "Error: Não foi possível abrir o arquivo no caminho: %s\n", db->staticPath);
         return false;
     }
 
@@ -142,7 +158,9 @@ bool loadRecordsFromDisk(DataBase* db) {
         }  // skips the first line
         const size_t bufferDataSize = strlen(buffer);
 
-        PersonRecord newRecord = parseData(buffer, bufferDataSize);
+        ParseResult parsedRecord = parseData(buffer, bufferDataSize);
+        if (parsedRecord.error) continue;
+        PersonRecord newRecord = parsedRecord.result;
         insertNewRecord(db, createPersonRecord(newRecord.id, newRecord.fullName, newRecord.age));
     }
 
@@ -163,6 +181,9 @@ bool saveRecordsToDisk(DataBase* db) {
     fprintf(fp, "%u\n", recordCount);
 
     _printToDiskRecursive(db->trie, 0, fp);
+
+    fseek(fp, -2, SEEK_END);
+    ftruncate(fileno(fp), ftell(fp));  // Remove the newline character
 
     fclose(fp);
     return true;

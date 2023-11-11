@@ -1,5 +1,12 @@
 # Mini Banco PCD
 
+Um mini banco de dados que implementa a estrutura de dados **trie**. 
+
+**Funcionalidades**:
+* Indexa elementos do tipo `PersonRecord` através de seu `id` na **trie**.
+* Salva/Carrega os dados no disco.
+* Remove, Adiciona e Busca índices na **trie**. 
+
 ## Compilando binários
 
 Compile os binários com make através do seguinte comando

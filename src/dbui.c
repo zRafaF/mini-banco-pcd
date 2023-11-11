@@ -70,8 +70,12 @@ void _searchDBForId(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
 }
 
 void _addToDb(DataBase* db, char data[MAX_DATA_SIZE], size_t dataSize) {
-    PersonRecord newRecord = parseData(data, dataSize);
-    PersonRecord* insertedRecord = insertNewRecord(db, newRecord);
+    ParseResult parsedRecord = parseData(data, dataSize);
+    if (parsedRecord.error) {
+        fprintf(stderr, "Erro durante o parsing\n");
+        return;
+    };
+    PersonRecord* insertedRecord = insertNewRecord(db, parsedRecord.result);
     if (insertedRecord == NULL) {
         fprintf(stderr, "Erro: ID repetido\n");
         return;

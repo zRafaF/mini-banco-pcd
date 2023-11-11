@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <unity.h>
 
 #include "test_db.h"
@@ -7,6 +8,8 @@ void setUp(void) {}
 void tearDown(void) {}
 
 int main() {
+    strncpy(testDbPathGlobal, "banco_teste.txt", PATH_STRING_SIZE - 1);
+
     UNITY_BEGIN();
 
     // Testando Trie
@@ -22,6 +25,11 @@ int main() {
 
     // Testando o Banco de Dados
     RUN_TEST(test_db__invertString);
+    RUN_TEST(test_db_parseData);
+    RUN_TEST(test_db_e2e);
+    RUN_TEST(test_dbui__processUserInput);
+
+    remove(testDbPathGlobal);
 
     return UNITY_END();
 }
