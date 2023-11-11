@@ -7,7 +7,7 @@
 
 void stressTestMemory(size_t numOfIterations) {
     for (size_t i = 0; i < numOfIterations; i++) {
-        printf("%u ", i);
+        printf("%lu ", i);
 
         DataBase* myDb = createDataBase();
 

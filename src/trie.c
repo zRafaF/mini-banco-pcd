@@ -181,6 +181,8 @@ void deleteTrie(TrieNode *trie) {
     if (trie->parent)
         deleteNode(trie);
     else {
+        if (trie->record)
+            free(trie->record);
         free(trie);
     }
 }
