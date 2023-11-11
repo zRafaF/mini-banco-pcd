@@ -31,6 +31,9 @@ DataBase* createDataBase();
 // Insere um novo PersonRecord ao banco de dados (Volátil)
 DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord);
 
+// Remove um PersonRecord por seu ID
+bool removeRecordById(DataBase* db, char id[MAX_ID_SIZE]);
+
 // Helper para criar um novo PersonRecord
 PersonRecord createPersonRecord(char id[MAX_ID_SIZE], char fullName[MAX_FULL_NAME_SIZE], int age);
 

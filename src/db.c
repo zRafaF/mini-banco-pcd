@@ -27,6 +27,10 @@ DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
     return db;
 }
 
+bool removeRecordById(DataBase* db, char id[MAX_ID_SIZE]) {
+    return removeWordOfTrie(db->trie, id);
+}
+
 PersonRecord createPersonRecord(char id[MAX_ID_SIZE], char fullName[MAX_FULL_NAME_SIZE], int age) {
     PersonRecord newRecord;
     strcpy(newRecord.id, id);

@@ -48,6 +48,41 @@ TrieNode *insertWordIntoTrie(TrieNode *trie, char *word) {
     return currentNode;
 }
 
+bool removeWordOfTrie(TrieNode *trie, char *word) {
+    TrieNode *lastNode = trie;
+    for (size_t i = 0; word[i] != '\0'; i++) {
+        const char currentChar = word[i];
+        TrieNode *childNodePtr = lastNode->children[charToTrieIdx(currentChar)];
+
+        if (childNodePtr != NULL) {
+            lastNode = childNodePtr;
+            continue;
+        }
+        return false;
+    }
+
+    if (hasChild(lastNode)) {
+        free(lastNode->record);
+        lastNode->record = NULL;
+        return true;
+    }
+
+    TrieNode *penultimateNode = lastNode->parent;
+
+    deleteNode(lastNode);
+    _removeUpRecurse(penultimateNode);
+
+    return true;
+}
+
+void _removeUpRecurse(TrieNode *node) {
+    TrieNode *parentNode = node->parent;
+    if (node->record == NULL && node->parent && !hasChild(node)) {
+        deleteNode(node);
+        _removeUpRecurse(parentNode);
+    }
+}
+
 bool hasChild(TrieNode *trie) {
     for (int i = 0; i < N_OF_CHILDREN; i++) {
         if (trie->children[i] != NULL)
@@ -58,14 +93,18 @@ bool hasChild(TrieNode *trie) {
 }
 
 void deleteNode(TrieNode *trie) {
+    free(trie->record);
+    trie->record = NULL;
+
+    if (hasChild(trie)) {
+        return;
+    }
+
+    TrieNode *parentNode = trie->parent;
+
     for (int i = 0; i < N_OF_CHILDREN; i++) {
-        TrieNode *child = trie->children[i];
-        if (child != NULL) {
-            if (child->record != NULL) {
-                free(trie->record);
-            }
-            deleteNode(child);
-        }
+        if (parentNode->children[i] == trie)
+            parentNode->children[i] = NULL;
     }
 
     free(trie);

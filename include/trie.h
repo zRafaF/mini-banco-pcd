@@ -40,10 +40,20 @@ ATENÇÃO: Retorna o ultimo Nodo da trie o qual deve ser OBRIGATORIAMENTE atribu
 */
 TrieNode *insertWordIntoTrie(TrieNode *trie, char *word);
 
+// Remove uma palavra em uma Trie
+bool removeWordOfTrie(TrieNode *trie, char *word);
+
+// Função privada: Remove os nodos de baixo para cima recursivamente
+void _removeUpRecurse(TrieNode *trie);
+
 // Verifica se um nodo possui um filho
 bool hasChild(TrieNode *trie);
 
-// Deleta um nodo e seus `children` recursivamente
+/*
+Desaloca o `record` do nodo.
+
+Caso o nodo não possua `children` sua memória sera desalocada e trocado para NULL no nodo pai.
+*/
 void deleteNode(TrieNode *trie);
 
 // Verifica se um nodo é uma folha

@@ -17,6 +17,11 @@ int main() {
 
     printEntireDB(myDb);
 
+    removeRecordById(myDb, "ab");
+    removeRecordById(myDb, "cbcaaa");
+    printf("removido\n");
+    printEntireDB(myDb);
+
     deleteDataBase(myDb);
     return 0;
 }
