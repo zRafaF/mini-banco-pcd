@@ -5,9 +5,9 @@
 #include "fileops.h"
 #include "trie.h"
 
-int main() {
-    for (size_t i = 0; i < 800; i++) {
-        printf("%i ", i);
+void stressTestMemory(size_t numOfIterations) {
+    for (size_t i = 0; i < numOfIterations; i++) {
+        printf("%u ", i);
 
         DataBase* myDb = createDataBase();
 
@@ -23,7 +23,10 @@ int main() {
 
         deleteDataBase(myDb);
     }
+}
 
+int main() {
+    stressTestMemory(1);
     // DataBase* myDb = createDataBase();
 
     // insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
