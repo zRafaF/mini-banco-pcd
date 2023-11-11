@@ -11,114 +11,37 @@
 
 typedef struct
 {
-    void *record;        // NULL se não for terminal
-    void *children[26];  // Ponteiros para os filhos
-    void *parent;        // NULL se for a Root
+    void *record;                   // NULL se não for terminal
+    void *children[N_OF_CHILDREN];  // Ponteiros para os filhos
+    void *parent;                   // NULL se for a Root
 } TrieNode;
 
-int charToTrieIdx(char character) {
-    return ((int)character) - 97;
-}
-char trieIdxToChar(int trieIdx) {
-    return (char)(trieIdx + 97);
-}
+int charToTrieIdx(char character);
+char trieIdxToChar(int trieIdx);
 
-TrieNode *_newTrieNode(void *record, TrieNode *parent) {
-    TrieNode *trie = (TrieNode *)malloc(sizeof(TrieNode));
-    if (trie == NULL) {
-        fprintf(stderr, "Erro durante alocação de memoria ao novo nodo da Trie\n");
-        exit(EXIT_FAILURE);
-    }
-    trie->record = record;
-    for (int i = 0; i < N_OF_CHILDREN; i++) {
-        trie->children[i] = NULL;
-    }
-    return trie;
-}
+TrieNode *_newTrieNode(void *record, TrieNode *parent);
 
-TrieNode *newTrie() {
-    return _newTrieNode(NULL, NULL);
-}
+TrieNode *newTrie();
 
 /*
 Insere uma palavra em uma Trie
 
 ATENÇÃO: Retorna o ultimo Nodo da trie o qual deve ser OBRIGATORIAMENTE atribuído um valor.
 */
-TrieNode *insertWordIntoTrie(TrieNode *trie, char *word) {
-    TrieNode *currentNode = trie;
-    for (size_t i = 0; word[i] != '\0'; i++) {
-        const char currentChar = word[i];
+TrieNode *insertWordIntoTrie(TrieNode *trie, char *word);
 
-        TrieNode *newNode = _newTrieNode(NULL, currentNode);
-        currentNode->children[charToTrieIdx(currentChar)] = newNode;
-        currentNode = newNode;
-    }
-    return currentNode;
-}
+bool hasChild(TrieNode *trie);
 
-bool hasChild(TrieNode *trie) {
-    for (int i = 0; i < N_OF_CHILDREN; i++) {
-        if (trie->children[i] != NULL)
-            return true;
-    }
+void deleteNode(TrieNode *trie);
 
-    return false;
-}
+bool isLeaf(TrieNode *tree);
 
-void deleteNode(TrieNode *trie) {
-    for (int i = 0; i < N_OF_CHILDREN; i++) {
-        TrieNode *child = trie->children[i];
-        if (child != NULL) {
-            if (child->record != NULL) {
-                free(trie->record);
-            }
-            deleteNode(child);
-        }
-    }
+TrieNode *getChild(TrieNode *tree, char childChar);
 
-    free(trie);
-}
+TrieNode *getChildAt(TrieNode *tree, int childIdx);
 
-bool isLeaf(TrieNode *tree) {
-    for (int i = 0; i < N_OF_CHILDREN; i++) {
-        if (tree->children[i] != NULL)
-            return false;
-    }
-    return true;
-}
+TrieNode *printTrie(TrieNode *trie);
 
-TrieNode *getChild(TrieNode *tree, char childChar) {
-    for (int i = 0; i < N_OF_CHILDREN; i++) {
-        if (trieIdxToChar(i) == childChar)
-            return (TrieNode *)(tree->children[i]);
-    }
-    return NULL;
-}
-
-TrieNode *getChildAt(TrieNode *tree, int childIdx) {
-    return (TrieNode *)(tree->children[childIdx]);
-}
-
-TrieNode *printTrie(TrieNode *trie) {
-    int level = 0;
-    char str[MAX_ID_SIZE];
-    printf("Imprimindo conteudo da trie:\n");
-    _displayTrie(trie, str, level);
-}
-
-void _displayTrie(TrieNode *node, char str[], int level) {
-    if (isLeaf(node)) {
-        str[level] = '\0';
-        printf("%s\n", str);
-    }
-
-    for (int i = 0; i < N_OF_CHILDREN; i++) {
-        if (node->children[i]) {
-            str[level] = i + 'a';
-            _displayTrie(node->children[i], str, level + 1);
-        }
-    }
-}
+void _displayTrie(TrieNode *node, char str[], int level);
 
 #endif
