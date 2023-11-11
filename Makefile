@@ -47,11 +47,10 @@ endif
 clean:
 	@echo Cleaning $(TARGET)
 ifeq ($(OS),Windows_NT)
-	@if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)
-	@if exist $(TARGET).exe del /f $(TARGET).exe
-
+	@if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR) 2>nul
+	@if exist $(TARGET).exe del /f $(TARGET).exe 2>nul
 else
-	@rm -rf $(BUILD_DIR)
-	@rm $(TARGET)
+	@if [ -d "$(BUILD_DIR)" ]; then rm -rf $(BUILD_DIR); fi
+	@if [ -e "$(TARGET)" ]; then rm -f $(TARGET); fi
 endif
 
