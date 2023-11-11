@@ -32,7 +32,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 # Main target with clean and all as dependencies
 $(TARGET): clean all
 
-all: run
+all:
 	$(CC) $(CFLAGS) $(SRCS) -o $(TARGET)
 	@echo Build complete for $(TARGET)
 
