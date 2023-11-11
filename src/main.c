@@ -6,22 +6,40 @@
 #include "trie.h"
 
 int main() {
-    DataBase* myDb = createDataBase();
+    for (size_t i = 0; i < 800; i++) {
+        printf("%i ", i);
 
-    insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+        DataBase* myDb = createDataBase();
 
-    insertNewRecord(myDb, createPersonRecord("cbcaaa", "Jhon", 25));
-    insertNewRecord(myDb, createPersonRecord("abcaaa", "Jhon", 25));
-    insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
-    insertNewRecord(myDb, createPersonRecord("ab", "Jhon", 25));
+        insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
 
-    printEntireDB(myDb);
+        insertNewRecord(myDb, createPersonRecord("cbcaaa", "Jhon", 25));
+        insertNewRecord(myDb, createPersonRecord("abcaaa", "Jhon", 25));
+        insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+        insertNewRecord(myDb, createPersonRecord("ab", "Jhon", 25));
 
-    removeRecordById(myDb, "ab");
-    removeRecordById(myDb, "cbcaaa");
-    printf("removido\n");
-    printEntireDB(myDb);
+        removeRecordById(myDb, "ab");
+        removeRecordById(myDb, "cbcaaa");
 
-    deleteDataBase(myDb);
+        deleteDataBase(myDb);
+    }
+
+    // DataBase* myDb = createDataBase();
+
+    // insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+
+    // insertNewRecord(myDb, createPersonRecord("cbcaaa", "Jhon", 25));
+    // insertNewRecord(myDb, createPersonRecord("abcaaa", "Jhon", 25));
+    // insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+    // insertNewRecord(myDb, createPersonRecord("ab", "Jhon", 25));
+
+    // printEntireDB(myDb);
+
+    // removeRecordById(myDb, "ab");
+    // removeRecordById(myDb, "cbcaaa");
+    // printf("removido\n");
+    // printEntireDB(myDb);
+
+    // deleteDataBase(myDb);
     return 0;
 }
