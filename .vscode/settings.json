@@ -9,7 +9,6 @@
     "editor.formatOnSave": true,
     "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google,  ColumnLimit: 0, IndentWidth: 4, TabWidth: 4}",
     "files.associations": {
-        "*.pl": "prolog",
         "fileops.h": "c",
         "stdio.h": "c",
         "trie.h": "c",
@@ -20,6 +19,9 @@
         "assert.h": "c",
         "dbui.h": "c",
         "globals.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "unity.h": "c",
+        "test_trie.h": "c",
+        "test_db.h": "c"
     }
 }

@@ -1,5 +1,12 @@
 # Mini Banco PCD
 
+Um mini banco de dados que implementa a estrutura de dados **trie**. 
+
+**Funcionalidades**:
+* Indexa elementos do tipo `PersonRecord` através de seu `id` na **trie**.
+* Salva/Carrega os dados no disco.
+* Remove, Adiciona e Busca índices na **trie**. 
+
 ## Compilando binários
 
 Compile os binários com make através do seguinte comando
@@ -15,6 +22,13 @@ make run
 ```
 
 Mesmo não sendo o ideal sempre que o comando `make` for executado a pipeline removerá todas as dependências e as recompilará, para garantir que tudo esteja em sua versão mais recente.
+
+## Testes
+Para testes o [Unity](https://www.throwtheswitch.org/unity) está sendo utilizado. Você pode executar os testes com
+
+```sh
+make test
+```
 
 ## Outros
 
