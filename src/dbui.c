@@ -3,8 +3,21 @@
 bool processUi(DataBase* db) {
     char userInput[MAX_INPUT_SIZE];
 
-    scanf("%[^\n]%*c", userInput);
-    fflush(stdin);
+    if (fgets(userInput, sizeof(userInput), stdin) == NULL) {
+        fprintf(stderr, "Error reading user input\n");
+        return false;
+    }
+
+    size_t len = strlen(userInput);
+    if (len > 0 && userInput[len - 1] == '\n') {
+        userInput[len - 1] = '\0';
+    }
+
+#ifndef _WIN32
+    strcat(userInput, "\n");
+#endif
+
+    printf("inp: %s\n", userInput);
 
     return _processUserInput(db, userInput);
 }

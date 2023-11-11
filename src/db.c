@@ -182,8 +182,11 @@ bool saveRecordsToDisk(DataBase* db) {
 
     _printToDiskRecursive(db->trie, 0, fp);
 
-    fseek(fp, -2, SEEK_END);
-    ftruncate(fileno(fp), ftell(fp));  // Remove the newline character
+    // Rewind to the beginning of the file
+    rewind(fp);
+
+    // Write the record count again
+    fprintf(fp, "%u", recordCount);
 
     fclose(fp);
     return true;

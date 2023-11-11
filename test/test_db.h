@@ -87,15 +87,15 @@ void test_db_e2e(void) {
 
         insertNewRecord(myDb, createPersonRecord("abc", "Miguel Arnaldo", 22));
         saveRecordsToDisk(myDb);
-        TEST_ASSERT_EQUAL_STRING("1\nabc Miguel Arnaldo 22", _readTextFile(testDbPathGlobal));
+        TEST_ASSERT_EQUAL_STRING("1\nabc Miguel Arnaldo 22\n", _readTextFile(testDbPathGlobal));
 
         insertNewRecord(myDb, createPersonRecord("ab", "Jerivaldo Nupo", 99));
         saveRecordsToDisk(myDb);
-        TEST_ASSERT_EQUAL_STRING("2\nab Jerivaldo Nupo 99\nabc Miguel Arnaldo 22", _readTextFile(testDbPathGlobal));
+        TEST_ASSERT_EQUAL_STRING("2\nab Jerivaldo Nupo 99\nabc Miguel Arnaldo 22\n", _readTextFile(testDbPathGlobal));
 
         removeRecordById(myDb, "ab");
         saveRecordsToDisk(myDb);
-        TEST_ASSERT_EQUAL_STRING("1\nabc Miguel Arnaldo 22", _readTextFile(testDbPathGlobal));
+        TEST_ASSERT_EQUAL_STRING("1\nabc Miguel Arnaldo 22\n", _readTextFile(testDbPathGlobal));
 
         TEST_ASSERT_NULL(insertNewRecord(myDb, createPersonRecord("abc", "Jurema Lima", 99)));
 
@@ -137,25 +137,25 @@ void test_dbui__processUserInput(void) {
 
     _processUserInput(myDb, "+ arn Arnaldo Lima 34\n");
     _processUserInput(myDb, "S");
-    TEST_ASSERT_EQUAL_STRING("1\narn Arnaldo Lima 34", _readTextFile(testDbPathGlobal));
+    TEST_ASSERT_EQUAL_STRING("1\narn Arnaldo Lima 34\n", _readTextFile(testDbPathGlobal));
 
     _processUserInput(myDb, "+ arn asd a sdas das dasd as das da 34\n");
     _processUserInput(myDb, "S");
-    TEST_ASSERT_EQUAL_STRING("1\narn Arnaldo Lima 34", _readTextFile(testDbPathGlobal));
+    TEST_ASSERT_EQUAL_STRING("1\narn Arnaldo Lima 34\n", _readTextFile(testDbPathGlobal));
 
     _processUserInput(myDb, "+ asd Ajlgs lksdm 0\n");
     _processUserInput(myDb, "+ dhw ASd ashish 1\n");
     _processUserInput(myDb, "+ asbtd asdasd Liasdama 99\n");
     _processUserInput(myDb, "+ asbtwe asdçasdão ajnsd 33\n");
     _processUserInput(myDb, "S");
-    TEST_ASSERT_EQUAL_STRING("5\narn Arnaldo Lima 34\nasbtd asdasd Liasdama 99\nasbtwe asdçasdão ajnsd 33\nasd Ajlgs lksdm 0\ndhw ASd ashish 1", _readTextFile(testDbPathGlobal));
+    TEST_ASSERT_EQUAL_STRING("5\narn Arnaldo Lima 34\nasbtd asdasd Liasdama 99\nasbtwe asdçasdão ajnsd 33\nasd Ajlgs lksdm 0\ndhw ASd ashish 1\n", _readTextFile(testDbPathGlobal));
 
     _processUserInput(myDb, "- asd");
     _processUserInput(myDb, "- arn");
     _processUserInput(myDb, "- asbtd");
     _processUserInput(myDb, "- asbtwe");
     _processUserInput(myDb, "S");
-    TEST_ASSERT_EQUAL_STRING("1\ndhw ASd ashish 1", _readTextFile(testDbPathGlobal));
+    TEST_ASSERT_EQUAL_STRING("1\ndhw ASd ashish 1\n", _readTextFile(testDbPathGlobal));
 
     deleteDataBase(myDb);
 }

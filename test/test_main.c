@@ -29,7 +29,7 @@ int main() {
     RUN_TEST(test_db_e2e);
     RUN_TEST(test_dbui__processUserInput);
 
-    remove(testDbPathGlobal);
+    // remove(testDbPathGlobal);
 
     return UNITY_END();
 }
