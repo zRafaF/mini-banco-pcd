@@ -8,11 +8,12 @@
 int main() {
     DataBase* myDb = createDataBase();
 
-    PersonRecord newPerson = createPersonRecord("abc", "Jhon", 25);
-    insertNewRecord(myDb, newPerson);
+    insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
 
-    PersonRecord newPerson2 = createPersonRecord("cbcaaa", "Jhon", 25);
-    insertNewRecord(myDb, newPerson2);
+    insertNewRecord(myDb, createPersonRecord("cbcaaa", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("abcaaa", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("abc", "Jhon", 25));
+    insertNewRecord(myDb, createPersonRecord("ab", "Jhon", 25));
 
     printEntireDB(myDb);
 

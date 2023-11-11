@@ -3,6 +3,7 @@
 
 #define N_OF_CHILDREN 26
 
+#include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>

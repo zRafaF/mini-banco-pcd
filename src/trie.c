@@ -1,9 +1,13 @@
 #include "trie.h"
 
 int charToTrieIdx(char character) {
+    assert(((int)character >= 97) && ((int)character <= 122));
+
     return ((int)character) - 97;
 }
 char trieIdxToChar(int trieIdx) {
+    assert(trieIdx >= 0 && trieIdx < N_OF_CHILDREN);
+
     return (char)(trieIdx + 97);
 }
 
@@ -28,6 +32,13 @@ TrieNode *insertWordIntoTrie(TrieNode *trie, char *word) {
     TrieNode *currentNode = trie;
     for (size_t i = 0; word[i] != '\0'; i++) {
         const char currentChar = word[i];
+
+        const TrieNode *childNodePtr = currentNode->children[charToTrieIdx(currentChar)];
+
+        if (childNodePtr != NULL) {
+            currentNode = childNodePtr;
+            continue;
+        }
 
         TrieNode *newNode = _newTrieNode(NULL, currentNode);
         currentNode->children[charToTrieIdx(currentChar)] = newNode;
@@ -82,14 +93,13 @@ TrieNode *getChildAt(TrieNode *tree, int childIdx) {
 TrieNode *printTrie(TrieNode *trie) {
     int level = 0;
     char str[MAX_ID_SIZE];
-    printf("Imprimindo conteudo da trie:\n");
     _displayTrie(trie, str, level);
 
     return trie;
 }
 
 void _displayTrie(TrieNode *node, char str[], int level) {
-    if (isLeaf(node)) {
+    if (node->record != NULL) {
         str[level] = '\0';
         printf("%s\n", str);
     }
@@ -98,6 +108,26 @@ void _displayTrie(TrieNode *node, char str[], int level) {
         if (node->children[i]) {
             str[level] = i + 'a';
             _displayTrie(node->children[i], str, level + 1);
+        }
+    }
+}
+
+unsigned int countNumOfElements(TrieNode *trie) {
+    int level = 0;
+    unsigned int elem = 0;
+    _countElems(trie, &elem, level);
+
+    return elem;
+}
+
+void _countElems(TrieNode *node, unsigned int *elem, int level) {
+    if (isLeaf(node) || node->record != NULL) {
+        (*elem)++;
+    }
+
+    for (int i = 0; i < N_OF_CHILDREN; i++) {
+        if (node->children[i]) {
+            _countElems(node->children[i], elem, level + 1);
         }
     }
 }

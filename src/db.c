@@ -6,7 +6,6 @@ DataBase* createDataBase() {
         fprintf(stderr, "Erro durante alocação de memoria do banco de dados\n");
         exit(EXIT_FAILURE);
     }
-    db->size = 0;
     db->trie = newTrie();
     return db;
 }
@@ -23,7 +22,6 @@ DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord) {
     strcpy(recordPtr->fullName, newRecord.fullName);
     recordPtr->age = newRecord.age;
     node->record = recordPtr;
-    db->size++;
 
     return db;
 }
@@ -38,6 +36,7 @@ PersonRecord createPersonRecord(char id[MAX_ID_SIZE], char fullName[MAX_FULL_NAM
 }
 
 void printEntireDB(DataBase* db) {
+    printf("Numero de elementos na TRIE: %u\nImprimindo a trie:\n", countNumOfElements(db->trie));
     printTrie(db->trie);
 }
 

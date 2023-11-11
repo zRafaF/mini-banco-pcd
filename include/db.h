@@ -17,7 +17,6 @@ typedef struct
 
 typedef struct
 {
-    int size;
     TrieNode* trie;
 } DataBase;
 
