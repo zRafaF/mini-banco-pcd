@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "globals.h"
 #include "trie.h"
@@ -26,7 +27,11 @@ DataBase* insertNewRecord(DataBase* db, PersonRecord newRecord);
 
 PersonRecord createPersonRecord(char id[MAX_ID_SIZE], char fullName[MAX_FULL_NAME_SIZE], int age);
 
-void printEntireDB(DataBase* db);
+PersonRecord* printPersonRecord(PersonRecord* record);
+
+DataBase* printEntireDB(DataBase* db);
+
+void _displayDBElement(TrieNode* node, int level);
 
 void deleteDataBase(DataBase* db);
 

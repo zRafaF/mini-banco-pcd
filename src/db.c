@@ -35,9 +35,28 @@ PersonRecord createPersonRecord(char id[MAX_ID_SIZE], char fullName[MAX_FULL_NAM
     return newRecord;
 }
 
-void printEntireDB(DataBase* db) {
-    printf("Numero de elementos na TRIE: %u\nImprimindo a trie:\n", countNumOfElements(db->trie));
-    printTrie(db->trie);
+PersonRecord* printPersonRecord(PersonRecord* record) {
+    printf("(%s|%s|%i)\n", record->id, record->fullName, record->age);
+    return record;
+}
+
+DataBase* printEntireDB(DataBase* db) {
+    _displayDBElement(db->trie, 0);
+
+    return db;
+}
+
+void _displayDBElement(TrieNode* node, int level) {
+    if (node->record != NULL) {
+        PersonRecord* record = (PersonRecord*)(node->record);
+        printPersonRecord(record);
+    }
+
+    for (int i = 0; i < N_OF_CHILDREN; i++) {
+        if (node->children[i]) {
+            _displayDBElement(node->children[i], level + 1);
+        }
+    }
 }
 
 void deleteDataBase(DataBase* db) {

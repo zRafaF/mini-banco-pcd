@@ -45,4 +45,7 @@ TrieNode *printTrie(TrieNode *trie);
 
 void _displayTrie(TrieNode *node, char str[], int level);
 
+unsigned int countNumOfElements(TrieNode *trie);
+void _countElems(TrieNode *node, unsigned int *elem, int level);
+
 #endif

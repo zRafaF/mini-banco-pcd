@@ -18,6 +18,7 @@ TrieNode *_newTrieNode(void *record, TrieNode *parent) {
         exit(EXIT_FAILURE);
     }
     trie->record = record;
+    trie->parent = parent;
     for (int i = 0; i < N_OF_CHILDREN; i++) {
         trie->children[i] = NULL;
     }
@@ -33,7 +34,7 @@ TrieNode *insertWordIntoTrie(TrieNode *trie, char *word) {
     for (size_t i = 0; word[i] != '\0'; i++) {
         const char currentChar = word[i];
 
-        const TrieNode *childNodePtr = currentNode->children[charToTrieIdx(currentChar)];
+        TrieNode *childNodePtr = currentNode->children[charToTrieIdx(currentChar)];
 
         if (childNodePtr != NULL) {
             currentNode = childNodePtr;
